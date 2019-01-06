@@ -4,6 +4,19 @@ import {
     Table, Input, Button, Icon,
 } from 'antd';
 
+var toUpperCase = function(str){
+    if(str && str.toUpperCase){
+        return str.toUpperCase();
+    }
+    return '';
+};
+var toLowerCase = function(str){
+      if(str && str.toLowerCase){
+        return str.toLowerCase();
+    }
+    return '';
+};
+
 class MyTable extends React.Component {
     constructor(props) {
         super(props);
@@ -27,8 +40,8 @@ class MyTable extends React.Component {
     }
 
     sorter(a, b) {
-        var stringA = a.name.toUpperCase(); // ignore upper and lowercase
-        var stringB = b.name.toUpperCase(); // ignore upper and lowercase
+        var stringA = toUpperCase(a.name); // ignore upper and lowercase
+        var stringB = toUpperCase(b.name); // ignore upper and lowercase
         if (stringA < stringB) {
             return -1;
         }
@@ -85,7 +98,7 @@ class MyTable extends React.Component {
                 </div>
             ),
         filterIcon: filtered => <Icon type="search" style={{ color: filtered ? '#1890ff' : undefined }} />,
-        onFilter: (value, record) => record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+        onFilter: (value, record) => toLowerCase(record[dataIndex].toString()).includes(toLowerCase(value)),
         onFilterDropdownVisibleChange: (visible) => {
             if (visible) {
                 setTimeout(() => this.searchInput.select());
